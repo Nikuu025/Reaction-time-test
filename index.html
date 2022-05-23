@@ -107,6 +107,11 @@
             {
                 cursor: pointer;
             }
+
+            #end-game *
+            {
+                margin: 10px;
+            }
         </style>
     </head>
     <body>
@@ -118,6 +123,9 @@
         </div>
         <div id="end-game" class="invisible">
             <!--score, highscore || new highscore-->
+            <h1>Highscore: <span class="highscore"></span></h1>
+            <h2>Score: <span id="score"></span></h2>
+            <h3>Average reaction time: <span id="avg"></span></h3>
             <button class="start-game">PLAY AGAIN</button>
         </div>
 
@@ -138,7 +146,11 @@
             var startTime;
             var endTime;
             var score = 0;
+            var reaction;
             var reactionSummary = 0;
+            var avgReaction;
+            var result;
+            var fastClick = 0;
 
             var showHighscore = document.querySelectorAll(".highscore");
 
@@ -147,11 +159,12 @@
             const checkStorage = () => {
                 if("Highscore" in localStorage)
                 {
-                    highscore = localStorage['Timezone'];
+                    highscore = localStorage['Highscore'];
                 }
                 else 
                 {
                     highscore = 0;
+                    localStorage.setItem("Highscore", highscore);
                 }
                 showHighscore.forEach((element) => element.innerHTML = highscore);
             }
@@ -214,7 +227,8 @@
                 clickMe.classList.remove("button-visible");
                 clickMe.classList.add("button-invisible");
                 endTime = performance.now();
-                var reaction = parseInt(endTime - startTime);
+                reaction = parseInt(endTime - startTime);
+                if(reaction < 500) fastClick++;
                 reactionSummary += reaction;
                 console.log(reaction);
                 score++;
@@ -233,7 +247,24 @@
                 endScreen.classList.add("visible");
 
                 reactionSummary+= (x-score) * 1500;
-                var avgReaction = reactionSummary / 10 + "ms";
+                avgReaction = reactionSummary / 10;
+
+                document.getElementById("avg").innerHTML = avgReaction + "ms";
+
+                result = parseInt(10 * (1500 - avgReaction) + 200 * fastClick);
+                document.getElementById("score").innerHTML = result;
+
+                if(result>highscore)
+                {
+                    showHighscore.forEach((element) => element.innerHTML = "NEW HIGHSCORE!");
+                    localStorage.setItem("Highscore", result);
+                }
+                else 
+                {
+                    showHighscore.forEach((element) => element.innerHTML = highscore);
+                }
+
+                reactionSummary = 0;
             }
         </script>
     </body>
