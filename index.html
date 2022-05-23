@@ -135,8 +135,10 @@
             var highscore;
             var preCounter = document.getElementById("pre-counter");
             var x = 0;
-            var count = 0;
+            var startTime;
+            var endTime;
             var score = 0;
+            var reactionSummary = 0;
 
             var showHighscore = document.querySelectorAll(".highscore");
 
@@ -160,7 +162,8 @@
                     element.classList.remove("visible");
                     element.classList.add("invisible");
                 });
-
+                x = 0;
+                score = 0;
                 preCounter.style.display = "block";
                 preCounter.innerHTML = "3";
                 setTimeout(() => { preCounter.innerHTML = "2"; }, 1000);
@@ -188,13 +191,13 @@
                     clickMe.classList.add("button-visible");
                     document.body.style.removeProperty("animation");
 
+                    startTime = performance.now();
+
                     setTimeout(() => { newButton(); }, 1500);
                 }
                 else 
                 {
-                    console.log("end");
-                    endScreen.classList.remove("invisible");
-                    endScreen.classList.add("visible");
+                    endGame();
                 }
             }
 
@@ -210,6 +213,10 @@
 
                 clickMe.classList.remove("button-visible");
                 clickMe.classList.add("button-invisible");
+                endTime = performance.now();
+                var reaction = parseInt(endTime - startTime);
+                reactionSummary += reaction;
+                console.log(reaction);
                 score++;
                 console.log(score);
                 document.body.style.animation = "score 0.75s";
@@ -218,6 +225,15 @@
             const buttonInner = () => {
                 let rand = Math.floor(emojis.length*Math.random());
                 clickMe.innerHTML = emojis[rand];
+            }
+
+            const endGame = () => {
+                console.log("end");
+                endScreen.classList.remove("invisible");
+                endScreen.classList.add("visible");
+
+                reactionSummary+= (x-score) * 1500;
+                var avgReaction = reactionSummary / 10 + "ms";
             }
         </script>
     </body>
