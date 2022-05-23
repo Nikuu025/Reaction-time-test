@@ -35,6 +35,19 @@
             .visible 
             {
                 display: flex;
+                animation: hello 3s;
+                min-height: 50vh;
+                min-width: 500px;
+                align-items: center;
+                flex-direction: column;
+                letter-spacing: 3px;
+                border: 3px solid white;
+                border-radius: 15px;
+                background-color: #202020;
+                -webkit-box-shadow: 2px 2px 10px -2px rgba(0, 0, 0, 1);
+                -moz-box-shadow: 2px 2px 10px -2px rgba(0, 0, 0, 1);
+                box-shadow: 2px 2px 10px -2px rgba(0, 0, 0, 1);
+                justify-content: center;
             }
 
             .invisible 
@@ -46,11 +59,61 @@
             {
                 font-size: 200px;
             }
+
+            @-webkit-keyframes hello 
+            {
+                0% {opacity: 0;}
+                100% {opacity: 1;}
+            }
+
+            @-webkit-keyframes score 
+            {
+                0% {background-color: #303030;}
+                50% {background-color: #176928;}
+                100% {background-color: #303030;}
+            }
+
+            .highscore 
+            {
+                font-weight: 700;
+                color: #d4ff3a
+            }
+
+            .visible h2 
+            {
+                margin: 40px;
+            }
+
+            .start-game
+            {
+                color: white;
+                background-color: #219137;
+                -webkit-box-shadow: 2px 2px 10px -2px rgba(0, 0, 0, 1);
+                -moz-box-shadow: 2px 2px 10px -2px rgba(0, 0, 0, 1);
+                box-shadow: 2px 2px 10px -2px rgba(0, 0, 0, 1);
+                border-radius: 10px;
+                font-size: 36px;
+                letter-spacing: 5px;
+                padding: 10px;
+                border: 2px solid white;
+            }
+
+            .start-game:hover
+            {
+                background-color: #2cbe49;
+            }
+
+            #click-me:hover 
+            {
+                cursor: pointer;
+            }
         </style>
     </head>
     <body>
         <div id="start-game" class="visible">
             <!--Title, Highscore from local storage, suwak difficulty-->
+            <h1>TEST YOUR REACTION</h1>
+            <h2>Highscore: <span class="highscore"></span></h2>
             <button class="start-game">START</button>
         </div>
         <div id="end-game" class="invisible">
@@ -67,12 +130,15 @@
             var startButtons = document.querySelectorAll(".start-game");
             startButtons.forEach((element) => {element.addEventListener("click", () => preGame())});
             var clickMe = document.querySelector("#click-me");
+            var endScreen = document.querySelector("#end-game");
 
             var highscore;
             var preCounter = document.getElementById("pre-counter");
             var x = 0;
             var count = 0;
             var score = 0;
+
+            var showHighscore = document.querySelectorAll(".highscore");
 
             var emojis = ["😺", "🐶", "🐺", "🦁", "🐯", "🦊", "🦝", "🐮", "🐷", "🐭", "🐼", "🐹", "🐸"];
 
@@ -85,6 +151,7 @@
                 {
                     highscore = 0;
                 }
+                showHighscore.forEach((element) => element.innerHTML = highscore);
             }
 
             const preGame = () => {
@@ -94,7 +161,7 @@
                     element.classList.add("invisible");
                 });
 
-                preCounter.style.opacity = 1;
+                preCounter.style.display = "block";
                 preCounter.innerHTML = "3";
                 setTimeout(() => { preCounter.innerHTML = "2"; }, 1000);
                 setTimeout(() => { preCounter.innerHTML = "1"; }, 2000);
@@ -103,7 +170,7 @@
 
             const startGame = () => {
                 console.log("start");
-                preCounter.style.opacity = 0;
+                preCounter.style.display = "none";
                 createButton();
             }
 
@@ -119,12 +186,15 @@
 
                     clickMe.classList.remove("button-invisible");
                     clickMe.classList.add("button-visible");
+                    document.body.style.removeProperty("animation");
 
                     setTimeout(() => { newButton(); }, 1500);
                 }
                 else 
                 {
                     console.log("end");
+                    endScreen.classList.remove("invisible");
+                    endScreen.classList.add("visible");
                 }
             }
 
@@ -142,6 +212,7 @@
                 clickMe.classList.add("button-invisible");
                 score++;
                 console.log(score);
+                document.body.style.animation = "score 0.75s";
             }
 
             const buttonInner = () => {
