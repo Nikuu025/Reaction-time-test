@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Reaction Time Test</title>
+
+        <style>
+            :root
+            {
+                --top: 50;
+                --left: 50;
+            }
+
+            body 
+            {
+                background-color: #303030;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="start-game" class="visible">
+            <!--Title, Highscore from local storage, suwak difficulty-->
+            <button class="start-game" onclick="startGame()">START</button>
+        </div>
+        <div id="end-game" class="invisible">
+            <!--score, highscore || new highscore-->
+            <button class="start-game">PLAY AGAIN</button>
+        </div>
+
+        <span id="pre-counter"></span>
+
+        <button class="button-visible" id="click-me"></button>
+
+        <script>
+            window.addEventListener("DOMContentLoaded", () => checkStorage());
+
+            var highscore;
+            var preCounter = document.getElementById("pre-counter");
+
+            const checkStorage = () => {
+                if("Highscore" in localStorage)
+                {
+                    highscore = localStorage['Timezone'];
+                }
+                else 
+                {
+                    highscore = 0;
+                }
+            }
+
+            const startGame = () => {
+                let toChange = document.querySelectorAll(".visible");
+                toChange.forEach((element) => {
+                    element.classList.remove("visible");
+                    element.classList.add("invisible");
+                });
+            }
+        </script>
+    </body>
+</html>
