@@ -1,18 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <title>Reaction Time Test</title>
 
-        <style>
-            :root
-            {
-                --top: 50;
-                --left: 50;
-            }
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 
+        <style>
             body 
             {
                 background-color: #303030;
+                color: white;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 99vh;
+                overflow: hidden;
+                font-family: 'Lato', sans-serif;
+            }
+
+            .button-visible
+            {
+                display: block;
+                position: absolute;
+            }
+
+            .button-invisible
+            {
+                display: none;
+            }
+
+            .visible 
+            {
+                display: flex;
+            }
+
+            .invisible 
+            {
+                display: none;
+            }
+
+            #pre-counter 
+            {
+                font-size: 200px;
             }
         </style>
     </head>
@@ -28,7 +59,7 @@
 
         <span id="pre-counter"></span>
 
-        <button class="button-visible" id="click-me"></button>
+        <span class="button-visible" id="click-me"></span>
 
         <script>
             window.addEventListener("DOMContentLoaded", () => checkStorage());
