@@ -24,6 +24,7 @@
             {
                 display: block;
                 position: absolute;
+                font-size: 60px;
             }
 
             .button-invisible
@@ -59,15 +60,21 @@
 
         <span id="pre-counter"></span>
 
-        <span class="button-visible" id="click-me"></span>
+        <span class="button-invisible" id="click-me"></span>
 
         <script>
             window.addEventListener("DOMContentLoaded", () => checkStorage());
             var startButtons = document.querySelectorAll(".start-game");
             startButtons.forEach((element) => {element.addEventListener("click", () => preGame())});
+            var clickMe = document.querySelector("#click-me");
 
             var highscore;
             var preCounter = document.getElementById("pre-counter");
+            var x = 0;
+            var count = 0;
+            var score = 0;
+
+            var emojis = ["😺", "🐶", "🐺", "🦁", "🐯", "🦊", "🦝", "🐮", "🐷", "🐭", "🐼", "🐹", "🐸"];
 
             const checkStorage = () => {
                 if("Highscore" in localStorage)
@@ -97,6 +104,49 @@
             const startGame = () => {
                 console.log("start");
                 preCounter.style.opacity = 0;
+                createButton();
+            }
+
+            clickMe.addEventListener("click", () => buttonClicked());
+
+            const createButton = () => {
+                if(x<10)
+                {
+                    clickMe.style.top = Math.random() * (window.innerHeight-60) + "px";
+                    clickMe.style.left = Math.random() * (window.innerWidth-60) + "px";
+
+                    buttonInner();
+
+                    clickMe.classList.remove("button-invisible");
+                    clickMe.classList.add("button-visible");
+
+                    setTimeout(() => { newButton(); }, 1500);
+                }
+                else 
+                {
+                    console.log("end");
+                }
+            }
+
+            const newButton = () => {
+
+                clickMe.classList.remove("button-visible");
+                clickMe.classList.add("button-invisible");
+                x++;
+                createButton();
+            }
+
+            const buttonClicked = () => {
+
+                clickMe.classList.remove("button-visible");
+                clickMe.classList.add("button-invisible");
+                score++;
+                console.log(score);
+            }
+
+            const buttonInner = () => {
+                let rand = Math.floor(emojis.length*Math.random());
+                clickMe.innerHTML = emojis[rand];
             }
         </script>
     </body>
