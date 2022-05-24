@@ -84,7 +84,7 @@
                 margin: 40px;
             }
 
-            .start-game
+            /*.start-game
             {
                 color: white;
                 background-color: #219137;
@@ -101,6 +101,38 @@
             .start-game:hover
             {
                 background-color: #2cbe49;
+            }*/
+
+            .start-game 
+            {
+                color: white;
+                position: relative;
+                background: none;
+                font-size: 36px;
+                padding: 5px;
+                border: none;
+                letter-spacing: 5px;
+                text-shadow: 1px 1px 3px rgba(0, 0, 0, 1);
+            }
+
+            .start-game:after
+            {    
+            background: none repeat scroll 0 0 transparent;
+            bottom: 0;
+            content: "";
+            display: block;
+            height: 4px;
+            left: 50%;
+            position: absolute;
+            background: #2cbe49;
+            transition: width 0.3s ease 0s, left 0.3s ease 0s;
+            width: 0;
+            }
+
+            .start-game:hover:after
+            { 
+                width: 100%; 
+                left: 0; 
             }
 
             #click-me:hover 
