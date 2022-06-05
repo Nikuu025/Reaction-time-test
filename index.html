@@ -233,8 +233,8 @@
             const createButton = () => {
                 if(x<10)
                 {
-                    clickMe.style.top = Math.random() * (window.innerHeight-60) + "px";
-                    clickMe.style.left = Math.random() * (window.innerWidth-60) + "px";
+                    clickMe.style.top = `${Math.random() * (window.innerHeight-60)}px`;
+                    clickMe.style.left = `${Math.random() * (window.innerWidth-60)}px`;
 
                     buttonInner();
 
@@ -287,7 +287,7 @@
                 reactionSummary+= (x-score) * 1500;
                 avgReaction = reactionSummary / 10;
 
-                document.getElementById("avg").innerHTML = avgReaction + "ms";
+                document.getElementById("avg").innerHTML = `${avgReaction} ms`;
 
                 result = parseInt(10 * (1500 - avgReaction) + 200 * fastClick);
                 document.getElementById("score").innerHTML = result;
