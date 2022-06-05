@@ -172,26 +172,27 @@
 
         <script>
             window.addEventListener("DOMContentLoaded", () => checkStorage());
-            var startButtons = document.querySelectorAll(".start-game");
+
+            const startButtons = document.querySelectorAll(".start-game");
             startButtons.forEach((element) => {element.addEventListener("click", () => preGame())});
-            var clickMe = document.querySelector("#click-me");
-            var endScreen = document.querySelector("#end-game");
 
-            var highscore;
-            var preCounter = document.getElementById("pre-counter");
-            var x = 0;
-            var startTime;
-            var endTime;
-            var score = 0;
-            var reaction;
-            var reactionSummary = 0;
-            var avgReaction;
-            var result;
-            var fastClick = 0;
+            const clickMe = document.querySelector("#click-me");
+            const endScreen = document.querySelector("#end-game");
+            const preCounter = document.getElementById("pre-counter");
+            const showHighscore = document.querySelectorAll(".highscore");
+            const emojis = ["😺", "🐶", "🐺", "🦁", "🐯", "🦊", "🦝", "🐮", "🐷", "🐭", "🐼", "🐹", "🐸"];
 
-            var showHighscore = document.querySelectorAll(".highscore");
+            let highscore;
+            let x;
+            let startTime;
+            let endTime;
+            let score;
+            let reaction;
+            let reactionSummary = 0;
+            let avgReaction;
+            let result;
+            let fastClick = 0;
 
-            var emojis = ["😺", "🐶", "🐺", "🦁", "🐯", "🦊", "🦝", "🐮", "🐷", "🐭", "🐼", "🐹", "🐸"];
 
             const checkStorage = () => {
                 if("Highscore" in localStorage)
